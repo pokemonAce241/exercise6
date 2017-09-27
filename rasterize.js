@@ -14,6 +14,7 @@ var vertexBuffer; // this contains vertex coordinates in triples
 var triangleBuffer; // this contains indices into vertexBuffer in triples
 var triBufferSize = 0; // the number of indices in the triangle buffer
 var vertexPositionAttrib; // where to put position for vertex shader
+var modelMatrixULoc; // where to put the model matrix for vertex shader
 
 
 // ASSIGNMENT HELPER FUNCTIONS
@@ -128,9 +129,10 @@ function setupShaders() {
     // define vertex shader in essl using es6 template strings
     var vShaderCode = `
         attribute vec3 vertexPosition;
+        uniform mat4 uModelMatrix; // the model matrix
 
         void main(void) {
-            gl_Position = vec4(vertexPosition, 1.0); // use the untransformed position
+            gl_Position = uModelMatrix * vec4(vertexPosition, 1.0);
         }
     `;
     
@@ -163,6 +165,8 @@ function setupShaders() {
                 gl.useProgram(shaderProgram); // activate shader program (frag and vert)
                 vertexPositionAttrib = // get pointer to vertex shader input
                     gl.getAttribLocation(shaderProgram, "vertexPosition"); 
+                modelMatrixULoc = gl.getUniformLocation(shaderProgram, "uModelMatrix"); // ptr to mmat
+
                 gl.enableVertexAttribArray(vertexPositionAttrib); // input to shader from array
             } // end if no shader program link errors
         } // end if no compile errors
