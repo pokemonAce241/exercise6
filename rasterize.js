@@ -181,6 +181,10 @@ function setupShaders() {
 function renderTriangles() {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); // clear frame/depth buffers
     
+    // define and pass in the modeling matrix m
+    var mMatrix = mat4.create(); // create the model matrix, init it to identity
+    gl.uniformMatrix4fv(modelMatrixULoc, false, mMatrix); // pass in the m matrix
+    
     // vertex buffer: activate and feed into vertex shader
     gl.bindBuffer(gl.ARRAY_BUFFER,vertexBuffer); // activate
     gl.vertexAttribPointer(vertexPositionAttrib,3,gl.FLOAT,false,0,0); // feed
