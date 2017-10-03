@@ -181,7 +181,7 @@ function renderTriangles() {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); // clear frame/depth buffers
     
     // define the modeling matrices for each set 
-    mat4.rotateZ(inputTriangles[0].mMatrix,mat4.create(),Math.PI/4); // create the model matrix for first set
+    mat4.fromRotation(inputTriangles[0].mMatrix,Math.PI/4,vec3.set(tempV,0,0,1)); // create the model matrix for first set
     inputTriangles[1].mMatrix = mat4.create(); // create the model matrix for second set, init it to identity
     
     for (var whichTriSet=0; whichTriSet<numTriangleSets; whichTriSet++) { 
