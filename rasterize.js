@@ -9,6 +9,7 @@ const INPUT_ELLIPSOIDS_URL = "https://pages.github.ncsu.edu/cgclass/exercise5/el
 var Eye = new vec4.fromValues(0.5,0.5,-0.5,1.0); // default eye position in world space
 
 /* input globals */
+var inputTriangles; // the triangles read in from json
 var numTriangleSets = 0; // the number of sets of triangles
 var triSetSizes = []; // the number of triangles in each set
 
@@ -74,7 +75,7 @@ function setupWebGL() {
 
 // read triangles in, load them into webgl buffers
 function loadTriangles() {
-    var inputTriangles = getJSONFile(INPUT_TRIANGLES_URL,"triangles");
+    inputTriangles = getJSONFile(INPUT_TRIANGLES_URL,"triangles");
 
     if (inputTriangles != String.null) { 
         var whichSetVert; // index of vertex in current triangle set
@@ -179,11 +180,14 @@ function setupShaders() {
 function renderTriangles() {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); // clear frame/depth buffers
     
-    // define and pass in the modeling matrix m
-    var mMatrix = mat4.create(); // create the model matrix, init it to identity
-    gl.uniformMatrix4fv(modelMatrixULoc, false, mMatrix); // pass in the m matrix
+    // define the modeling matrices for each set 
+    inputTriangles[0].mMatrix = mat4.create(); // create the model matrix for first set, init it to identity
+    inputTriangles[1].mMatrix = mat4.create(); // create the model matrix for second set, init it to identity
     
     for (var whichTriSet=0; whichTriSet<numTriangleSets; whichTriSet++) { 
+        
+        // pass modeling matrix for set to shadeer
+        gl.uniformMatrix4fv(modelMatrixULoc, false, InputTriangles[whichTriSet].mMatrix);
 
         // vertex buffer: activate and feed into vertex shader
         gl.bindBuffer(gl.ARRAY_BUFFER,vertexBuffers[whichTriSet]); // activate
