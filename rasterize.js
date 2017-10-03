@@ -187,7 +187,7 @@ function renderTriangles() {
     for (var whichTriSet=0; whichTriSet<numTriangleSets; whichTriSet++) { 
         
         // pass modeling matrix for set to shadeer
-        gl.uniformMatrix4fv(modelMatrixULoc, false, InputTriangles[whichTriSet].mMatrix);
+        gl.uniformMatrix4fv(modelMatrixULoc, false, inputTriangles[whichTriSet].mMatrix);
 
         // vertex buffer: activate and feed into vertex shader
         gl.bindBuffer(gl.ARRAY_BUFFER,vertexBuffers[whichTriSet]); // activate
