@@ -187,7 +187,7 @@ function renderTriangles() {
     mat4.multiply(inputTriangles[0].mMatrix,
                   mat4.fromRotation(mat4.create(),Math.PI/2,vec3.fromValues(0,0,1)),
                   inputTriangles[0].mMatrix); // rotate 90 degs
-    console.log(str(mat4.fromTranslation(vec3.create(),setCenter)));
+    console.log(mat4.str(mat4.fromTranslation(vec3.create(),setCenter)));
     mat4.multiply(inputTriangles[0].mMatrix,
                   mat4.fromTranslation(vec3.create(),setCenter),
                   inputTriangles[0].mMatrix); // move back to center
