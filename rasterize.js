@@ -202,7 +202,7 @@ function renderTriangles() {
     inputTriangles[1].mMatrix = mat4.create();
     mat4.fromTranslation(inputTriangles[1].mMatrix,vec3.fromValues(-.25,-.25,0));
     mat4.multiply(inputTriangles[1].mMatrix,
-                  mat4.fromScale(mat4.create(),vec3.fromValues(2,2,1)),
+                  mat4.fromScaling(mat4.create(),vec3.fromValues(2,2,1)),
                   inputTriangles[1].mMatrix);
     mat4.multiply(inputTriangles[1].mMatrix,
                   mat4.fromRotation(mat4.create(),Math.PI/4,vec3.fromValues(0,0,1)),
