@@ -180,10 +180,19 @@ function setupShaders() {
 function renderTriangles() {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); // clear frame/depth buffers
     
-    // define the modeling matrices for each set 
-    inputTriangles[0].mMatrix = mat4.create();
-    // mat4.fromRotation(inputTriangles[0].mMatrix,Math.PI/4,vec3.set(vec3.create(),0,0,1)); // rotate first tri set
-    inputTriangles[1].mMatrix = mat4.create(); // create the model matrix for second set, init it to identity
+    // define the modeling matrix for the first set 
+    var setCenter = vec3.fromValues(.25,.75,0);  // center coords of tri set 
+    inputTriangles[0].mMatrix = mat4.create(); // modeling mat for tri set
+    mat4.fromTranslation(inputTriangles[0].mMatrix,vec3.negate(vec3.create(),setCenter)); // translate to origin
+    mat4.multiply(inputTriangles[0].mMatrix,
+                  mat4.fromRotation(mat4.create(),Math.PI/2,vec3.fromValues(0,0,1)),
+                  inputTriangles[0].mMatrix); // rotate 90 degs
+    mat4.multiply(inputTriangles[0].mMatrix,
+                  mat4.fromTranslation(vec3.create(),setCEnter),
+                  inputTriangles[0].mMatrix); // move back to center
+    
+    // define the modeling matrix for the second set
+    inputTriangles[1].mMatrix = mat4.create();
     
     for (var whichTriSet=0; whichTriSet<numTriangleSets; whichTriSet++) { 
         
