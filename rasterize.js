@@ -182,7 +182,7 @@ function renderTriangles() {
     
     // define the modeling matrices for each set 
     inputTriangles[0].mMatrix = mat4.create();
-    mat4.fromRotation(inputTriangles[0].mMatrix,Math.PI/4,vec3.set(vec3.create(),0,0,1)); // create the model matrix for first set
+    // mat4.fromRotation(inputTriangles[0].mMatrix,Math.PI/4,vec3.set(vec3.create(),0,0,1)); // rotate first tri set
     inputTriangles[1].mMatrix = mat4.create(); // create the model matrix for second set, init it to identity
     
     for (var whichTriSet=0; whichTriSet<numTriangleSets; whichTriSet++) { 
